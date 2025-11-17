@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Başlatılıyor</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; background-color: #f0f0f0; text-align: center; }
+        .container { background-color: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); width: 300px; }
+        h1 { color: #333; margin-bottom: 30px; }
+        button { padding: 10px 20px; margin: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; }
+        #iyiBtn { background-color: #4CAF50; color: white; }
+        #kotuBtn { background-color: #FFA500; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Soru 1/2: Nasılsın?</h1>
+        <div id="mesaj"></div>
+        <button id="iyiBtn" onclick="cevapla('iyi')">İyiyim, teşekkür ederim.</button>
+        <button id="kotuBtn" onclick="cevapla('kotu')">Pek iyi sayılmam.</button>
+    </div>
+
+    <script>
+        const mesajDiv = document.getElementById('mesaj');
+
+        function cevapla(cevap) {
+            if (cevap === 'iyi') {
+                // Mesajı göster ve 2 saniye sonra 2. sayfaya yönlendir
+                mesajDiv.innerHTML = '<p style="color:#4CAF50; font-weight:bold;">Süper, çok sevindim! 😊</p>';
+                setTimeout(() => {
+                    window.location.href = 'teklif.html?durum=iyi';
+                }, 1500);
+            } else {
+                // Mesajı göster ve 2 saniye sonra 2. sayfaya yönlendir
+                mesajDiv.innerHTML = '<p style="color:#FFA500; font-weight:bold;">Umarım bu test sonucunda modunu düzeltebilirim! 🙏</p>';
+                setTimeout(() => {
+                    window.location.href = 'teklif.html?durum=kotu';
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>

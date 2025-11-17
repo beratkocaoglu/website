@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soru 2/2</title>
+    <style>
+        /* CSS kodları */
+        body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; background-color: #f0f0f0; text-align: center; }
+        .container { background-color: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); width: 350px; }
+        #durumMesaj { font-size: 1.1em; margin-bottom: 20px; font-weight: bold; }
+        #teklifMesaj { font-size: 1.4em; margin-bottom: 25px; color: #333; }
+        .butonlar { display: flex; justify-content: center; gap: 20px; }
+        button { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; }
+        #evetBtn { background-color: #4CAF50; color: white; font-size: 16px; }
+        #hayirBtn { background-color: #f44336; color: white; font-size: 16px; }
+        .kod-satiri { font-family: monospace; background-color: #eee; padding: 2px 5px; border-radius: 4px; font-size: 1.1em; display: inline-block; color: #c7254e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="durumMesaj"></div>
+        <div id="teklifMesaj">
+            <p>
+                <b></b><br>
+               <br>
+               
+            </p>
+            <hr>
+            <p>
+                <b>İşlem Devam Ediyor:</b><br>
+                Benimle bir kahve içmeye çıkmak ister misin?
+            </p>
+        </div>
+
+        <div class="butonlar">
+            <button id="evetBtn" onclick="evetCevabi()">EVET</button>
+            <button id="hayirBtn" onclick="hayirCevabi()">HAYIR</button>
+        </div>
+    </div>
+
+    <script>
+        // Önceki sayfadan gelen durumu al
+        const params = new URLSearchParams(window.location.search);
+        const durum = params.get('durum');
+        const durumMesajDiv = document.getElementById('durumMesaj');
+
+        if (durum === 'iyi') {
+            durumMesajDiv.innerHTML = '<p style="color:#4CAF50;">Süper, çok sevindim! 😊</p>';
+        } else if (durum === 'kotu') {
+            durumMesajDiv.innerHTML = '<p style="color:#FFA500;">Umarım bu test sonucunda modunu düzeltebilirim! 🙏</p>';
+        }
+        
+        // Büyütme Mekanizması
+        let evetFontBoyutu = 16;
+        const evetBtn = document.getElementById('evetBtn');
+        const hayirBtn = document.getElementById('hayirBtn');
+        const teklifMesajDiv = document.getElementById('teklifMesaj');
+
+        function evetCevabi() {
+            // 3. sayfaya yönlendir
+            window.location.href = 'sonuc.html'; 
+        }
+
+        function hayirCevabi() {
+            // Evet butonunu büyüt
+            evetFontBoyutu += 8; 
+            evetBtn.style.fontSize = `${evetFontBoyutu}px`;
+            
+            // Padding'i de büyütelim
+            let mevcutPadding = parseInt(evetBtn.style.paddingLeft) || 20;
+            evetBtn.style.padding = `${15 + (evetFontBoyutu - 16)}px ${mevcutPadding + 5}px`;
+
+            // Mesajı güncelle
+            teklifMesajDiv.innerHTML = '<h2>⚠️ REDDEDİLDİ: İşlem Hata Verdi!</h2><p>Hata Gideriliyor... (Yeniden dene.)</p><hr><p><b>İşlem Devam Ediyor:</b><br>Benimle bir kahve içmeye çıkmak ister misin?</p>';
+
+            // Hayır butonunu küçültelim
+            hayirBtn.style.fontSize = `${16 - (evetFontBoyutu - 16) * 0.5}px`;
+        }
+    </script>
+</body>
+</html>
